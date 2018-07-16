@@ -1,0 +1,108 @@
+工作区->暂存区->本地仓库
+git init
+
+git add file
+git comomit -m "msg"
+
+git diff 当前工作区修改情况
+
+git log 查看本地仓库提交的记录
+git log --pretty=oneline
+
+git reflog
+
+HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+
+git checkout -- file可以丢弃工作区的修改
+git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区
+git reset --hard HEAD^ 本地仓库回到上个版本
+git reset --hard <commit_id> 本地仓库回到指定版本（未来或过去）
+
+回滚远程代码
+git revert commit_id(编写commit msg)
+git push origin branch-name
+
+git rm test.txt删除文件保存在暂存区，使用commit提交到仓库
+
+ssh-keygen -t rsa -C "youremail@example.com"
+
+origin远程仓库的名字
+git remote add origin git@github.com:zmOnly1/test.git
+git push -u origin master推送本地分支master到远程仓库，第一次推送加-u与远程仓库的master分支关联
+
+git push origin master将master分支提交到远程仓库origin
+
+git checkout -b dev
+=>
+git branch dev
+git checkout dev
+
+master合并dev分支
+git checkout master
+git merge dev
+git branch -d dev删除dev分支
+git merge --no-ff -m "merge with no-ff" dev
+
+git log --graph --pretty=oneline --abbrev-commit
+
+git stash保存工作区和暂存区现场
+
+回复现场一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；git stash apply stash@{0}
+git stash apply [stash_id] 还原stash
+git stash drop [stash_id] 删除stash
+
+git stash pop [stash_id] 恢复并删除stash
+
+git branch -D branch 强制删除一个没有merge过的分支
+git push origin -d BranchName删除远程分支
+
+下面命令也是删除远程分支
+git push origin :branch-name
+
+查看push pll权限
+git remote -v
+
+git pull之前
+git branch --set-upstream-to=origin/dev dev关联远程和本地分支进行pull
+
+
+git checkout -b branch-name origin/branch-name
+git push origin branch-name -u(远程仓库创建相应的分支)
+git branch --set-upstream branch-name origin/branch-name
+
+git tag查看标签
+git tag v1.0打标签
+git tag v0.9 commit_id打标签
+git tag -a v0.1 -m "version 0.1 released" commit-id
+git show v0.1
+git tag -d v0.1删除本地标签
+git push origin <tagname>推送某个标签
+git push origin --tags推送全部标签
+git push origin :refs/tags/v0.9删除远程标签
+
+git config --global user.name "Your Name"
+git config --global user.email "email@example.com"
+git config --global color.ui true
+
+.gitignore
+git add -f App.class
+git check-ignore -v App.class
+
+别名
+git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.br branch
+
+git config --global alias.unstage 'reset HEAD'
+git unstage test.py
+
+显示最后一次提交信息
+git config --global alias.last 'log -1'
+git last
+
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+--global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用
+.gitconfig针对用户
+.git/config针对当前
